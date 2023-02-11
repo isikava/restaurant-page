@@ -1,7 +1,223 @@
-h1 {
-  color: red;
+:root {
+  --ff-primary: 'Sen', sans-serif;
+  --ff-accent: 'Roboto', sans-serif;
+  --c-light: #fff;
+  --c-dark: #000;
+  --c-accent-dark: #392e2d;
+  --c-body: var(--c-light);
+  --c-text: var(--c-dark);
+  --c-text-muted: #282828;
+  --c-button: #d21200;
+}
 
-  &:hover {
-    color: blue;
+$breakpoints: (
+  'medium': (
+    min-width: 760px,
+  ),
+  'large': (
+    min-width: 1000px,
+  ),
+  'huge': (
+    min-width: 1200px,
+  ),
+);
+
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+ul,
+li {
+  list-style: none;
+}
+
+/* <-- reset */
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: var(--c-body);
+  color: var(--c-text);
+  font-family: var(--ff-primary);
+}
+
+.container {
+  max-width: 1200px;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.header {
+  .container {
+    display: grid;
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+    line-height: 2.7rem;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 10px;
+    padding: 0;
+
+    a {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+
+  @include respond-to('medium') {
+    .container {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    nav {
+      justify-self: center;
+
+      ul {
+        gap: 40px;
+
+        a {
+          font-size: 1.7rem;
+        }
+      }
+    }
+  }
+}
+
+main {
+  background-color: var(--c-dark);
+  color: var(--c-light);
+}
+
+.content {
+  .menu-bg {
+    width: 100%;
+    height: 400px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+      url('images/menu-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      padding-top: 139px;
+      text-shadow: 2px 2px 13px rgb(0 0 0 / 35%);
+    }
+  }
+
+  .menu-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: -120px;
+  }
+
+  .menu-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--c-light);
+    color: var(--c-dark);
+
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+  }
+
+  @include respond-to('medium') {
+    .menu-bg {
+      height: 600px;
+
+      h1 {
+        padding-top: 200px;
+        font-size: 3.75rem;
+      }
+    }
+
+    .menu-cards {
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: -180px;
+    }
+
+    .menu-card {
+      padding: 30px;
+
+      img {
+        height: 258px;
+        object-fit: cover;
+      }
+    }
   }
 }
