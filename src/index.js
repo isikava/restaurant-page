@@ -1,3 +1,4 @@
 import './style.scss';
+import init from './js/init';
 
-console.log('hello index');
+init();
