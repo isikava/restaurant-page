@@ -12,27 +12,44 @@ const render = (nodeElement, html) => {
   nodeElement.innerHTML = html;
 };
 
-const content = document.querySelector('#content');
-const homeTab = document.querySelector('.header nav a[data-tab="home"]');
-const menuTab = document.querySelector(`.header nav a[data-tab="menu"]`);
-const contactsTab = document.querySelector(
-  `.header nav a[data-tab="contacts"]`
-);
-
-// Initialize Home page load
+// Initialize
 const init = () => {
-  homeTab.addEventListener('click', () => {
+  const content = document.querySelector('#content');
+  const homeTab = document.querySelector('.header nav a[data-tab="home"]');
+  const menuTab = document.querySelector(`.header nav a[data-tab="menu"]`);
+  const contactsTab = document.querySelector(
+    `.header nav a[data-tab="contacts"]`
+  );
+
+  // Render pages content on tab clicked
+  homeTab.addEventListener('click', (e) => {
+    if (e.target.classList.contains('active')) return;
     render(content, homeHtml);
   });
 
-  menuTab.addEventListener('click', () => {
+  menuTab.addEventListener('click', (e) => {
+    if (e.target.classList.contains('active')) return;
     render(content, menuHtml);
   });
 
-  contactsTab.addEventListener('click', () => {
+  contactsTab.addEventListener('click', (e) => {
+    if (e.target.classList.contains('active')) return;
     render(content, contactsHtml);
   });
 
+  const tabs = document.querySelectorAll('.header nav a');
+
+  // Set active tab
+  tabs.forEach((clickedTab) => {
+    clickedTab.addEventListener('click', (e) => {
+      tabs.forEach((tab) => {
+        tab.classList.remove('active');
+      });
+      e.target.classList.add('active');
+    });
+  });
+
+  // Render Home page
   render(content, homeHtml);
 };
 

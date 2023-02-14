@@ -105,7 +105,7 @@ html {
 
 body {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   background-color: var(--c-body);
   color: var(--c-text);
   font-family: var(--ff-primary);
@@ -178,6 +178,7 @@ body {
     padding: 0;
 
     a {
+      display: block;
       font-size: 1.2rem;
       cursor: pointer;
     }
@@ -204,8 +205,21 @@ body {
   }
 }
 
+nav a.active,
+nav a:hover {
+  border-bottom: 2px solid currentColor;
+}
+
 main {
   display: grid;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--c-dark);
+  color: var(--c-light);
+  font-family: system-ui, sans-serif;
 }
 
 .home {
