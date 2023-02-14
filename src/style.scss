@@ -1,5 +1,5 @@
 :root {
-  --ff-primary: 'Sen', sans-serif;
+  --ff-primary: 'Raleway', sans-serif;
   --ff-accent: 'Lobster', cursive;
   --c-light: #fff;
   --c-dark: #000;
@@ -8,41 +8,6 @@
   --c-text: var(--c-dark);
   --c-text-muted: #282828;
   --c-button: #d21200;
-}
-
-$breakpoints: (
-  'medium': (
-    min-width: 760px,
-  ),
-  'large': (
-    min-width: 1000px,
-  ),
-  'huge': (
-    min-width: 1200px,
-  ),
-);
-
-/// Responsive breakpoint manager
-/// @access public
-/// @param {String} $breakpoint - Breakpoint
-/// @requires $breakpoints
-@mixin respond-to($breakpoint) {
-  $raw-query: map-get($breakpoints, $breakpoint);
-
-  @if $raw-query {
-    $query: if(
-      type-of($raw-query) == 'string',
-      unquote($raw-query),
-      inspect($raw-query)
-    );
-
-    @media #{$query} {
-      @content;
-    }
-  } @else {
-    @error 'No value found for `#{$breakpoint}`. '
-         + 'Please make sure it is defined in `$breakpoints` map.';
-  }
 }
 
 /*
@@ -98,6 +63,41 @@ a {
 }
 
 /* <-- reset */
+
+$breakpoints: (
+  'medium': (
+    min-width: 760px,
+  ),
+  'large': (
+    min-width: 1000px,
+  ),
+  'huge': (
+    min-width: 1200px,
+  ),
+);
+
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
 
 html {
   overflow-y: scroll;
@@ -215,7 +215,6 @@ main {
 .hero-cards {
   width: 80%;
   margin: 50px auto;
-  animation: fadeIn 1s;
 
   .card-right {
     img {
@@ -332,5 +331,53 @@ main {
       height: 258px;
       object-fit: cover;
     }
+  }
+}
+
+.contacts {
+  width: 100%;
+  background-image: url('images/contacts-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.contacts-cards {
+  display: grid;
+  gap: 21px;
+  width: 80%;
+  margin: 160px auto 20px;
+  animation: fadeIn 1s;
+
+  @include respond-to('medium') {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('large') {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 280px auto 20px;
+  }
+}
+
+.contacts-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+
+  img {
+    width: 64px;
+  }
+
+  h5 {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-family: system-ui, sans-serif;
   }
 }
