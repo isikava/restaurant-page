@@ -2,7 +2,7 @@
 
 ## Project: Restaurant Page
 
-## [Live](https://alexign473.github.io/restaurant-page/)
+## [Live](https://isikava.github.io/restaurant-page/)
 
 A Restaurant Page.
 
